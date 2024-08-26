@@ -1,0 +1,25 @@
+.letter-btn {
+    background-color: #d3d6da;
+    border: 0;
+    border-radius: 4px;
+    color: #333;
+    display: inline-block;
+    font-size: 1.2em;
+    font-weight: bold;
+    height: 50px;
+    width: fit-content;
+    min-width: 40px;
+    margin: 5px;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.letter-btn:active {
+    background-color: #e9e9e9;
+}
+
+.letter-btn:hover {
+    background-color: #e9e9e9;
+    cursor: pointer;
+}
