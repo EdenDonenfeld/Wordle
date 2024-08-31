@@ -1,11 +1,10 @@
-.keyboard-container {
+.words.container {
     display: flex;
     flex-direction: column;
     margin: 10px;
 }
 
-.first-row, .second-row, .third-row {
+.row {
     display: flex;
     justify-content: center;
 }
-

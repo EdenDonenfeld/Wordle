@@ -1,7 +1,8 @@
-import Button from "./Button";
+import React from "react";
+import Letter from "./Letter";
 import '../css/Keyboard.css';
 
-const Keyboard = () => {
+const Keyboard = ({ onKeyPress }) => {
 
     const firstRowLetters = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
     const secondRowLetters = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
@@ -11,20 +12,20 @@ const Keyboard = () => {
         <div className="keyboard-container">
             <div className="first-row">
                 {firstRowLetters.map((letter, index) => {
-                    return <Button key={index} letter={letter} />
+                    return <Letter key={index} letter={letter} onClick={onKeyPress} />
                 })}
             </div>
             <div className="second-row">
                 {secondRowLetters.map((letter, index) => {
-                    return <Button key={index} letter={letter} />
+                    return <Letter key={index} letter={letter} onClick={onKeyPress} />
                 })}
             </div>
             <div className="third-row">
-                <Button letter="Enter" />
+                <Letter letter="Enter" onClick={onKeyPress} />
                 {thirdRowLetters.map((letter, index) => {
-                    return <Button key={index} letter={letter} />
+                    return <Letter key={index} letter={letter} onClick={onKeyPress} />
                 })}
-                <Button letter="Del" />
+                <Letter letter="Del" onClick={onKeyPress} />
             </div>
         </div>
     );

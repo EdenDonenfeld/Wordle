@@ -1,0 +1,15 @@
+.letter-btn {
+    background-color: white;
+    border: 2px solid #d3d6da;
+    color: #333;
+    display: inline-block;
+    font-size: 1.2em;
+    font-weight: bold;
+    font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+    height: 45px;
+    width: 45px;
+    margin: 2.5px;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+}
