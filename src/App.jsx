@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Keyboard from './Components/jsx/Keyboard';
 import Board from './Components/jsx/Board';
@@ -14,6 +14,28 @@ const App = () => {
     setLetter(letter);
     setKeyPressCount(keyPressCount + 1);
   }
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const { key } = event;
+      if (key >= 'a' && key <= 'z') {
+        setLetter(key.toUpperCase());
+        setKeyPressCount(keyPressCount + 1);
+      } else if (key === 'Enter') {
+        setLetter('Enter');
+        setKeyPressCount(keyPressCount + 1);
+      } else if (key === 'Backspace') {
+        setLetter('Del');
+        setKeyPressCount(keyPressCount + 1);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [keyPressCount]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <SolutionProvider>

@@ -5,7 +5,7 @@ const Letter = ({ letter, onClick }) => {
     return (
       <button className="keyboard-btn"
         onClick={() => onClick(letter)} >
-        {letter}
+          {letter}
       </button>
     );
   }
