@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Cell from "./Cell";
+import Notification from "./Notification";
 import '../css/Board.css';
+import { SolutionContext } from "./SolutionContext";
 
 const Board = ({ letter, keyPressCount }) => {
-    const [board, setBoard] = useState(Array(6).fill(null).map(() => Array(5).fill('')));
+    const [board, setBoard] = useState(Array(6).fill(null).map(() => 
+        Array(5).fill({ letter: '', color: 'white' })
+    ));
     const [currentRow, setCurrentRow] = useState(0);
     const [currentCol, setCurrentCol] = useState(0);
+    const [notification, setNotification] = useState({ message: '', visible: false });
+
+    const { solution, validGuesses, validSolutions } = useContext(SolutionContext);
 
     useEffect(() => {
         if (letter) {
@@ -21,13 +28,51 @@ const Board = ({ letter, keyPressCount }) => {
 
 
     const handleEnter = () => {
-        console.log("Current row: ", currentRow);
-        console.log("Current col: ", currentCol);
-        if (currentCol < 5) {
-            console.log("Please fill the entire row before moving to the next row");
+        if (currentCol === 5) {
+            const guess = board[currentRow].map(cell => cell.letter);
+            const word = guess.join('').toLowerCase();
+
+            if (word === solution) {
+                let winMessage = '';
+                switch (currentRow) {
+                    case 0:
+                        winMessage = 'Genius';
+                        break;
+                    case 1:
+                        winMessage = 'Magnificent';
+                        break;
+                    case 2:
+                        winMessage = 'Impressive';
+                        break;
+                    case 3:
+                        winMessage = 'Splendid';
+                        break;
+                    case 4:
+                        winMessage = 'Great';
+                        break;
+                    case 5:
+                        winMessage = 'Phew';
+                        break;
+                    default:
+                        break;
+                }
+                showNotfication(winMessage);
+            }
+
+            if (validGuesses.includes(word) || validSolutions.includes(word)) {
+                const newBoard = board.map(row => row.map(cell => ({ ...cell })));
+                guess.forEach((letter, index) => {
+                    const color = checkLetter(letter.toLowerCase(), index);
+                    newBoard[currentRow][index].color = color;
+                    setBoard(newBoard);
+                });
+                setCurrentCol(0);
+                setCurrentRow(currentRow + 1);
+            } else {
+                showNotfication('Not in word list');
+            }
         } else {
-            setCurrentCol(0);
-            setCurrentRow(currentRow + 1);
+            showNotfication('Not enough letters');
         }
     }
 
@@ -39,7 +84,8 @@ const Board = ({ letter, keyPressCount }) => {
             let newCol = currentCol;
             newCol -= 1;
             
-            newBoard[newRow][newCol] = '';
+            newBoard[newRow][newCol].letter = '';
+            newBoard[newRow][newCol].color = 'white';
             setBoard(newBoard);
             setCurrentCol(newCol);
             setCurrentRow(newRow);
@@ -48,8 +94,8 @@ const Board = ({ letter, keyPressCount }) => {
 
     const handleLetterInput = (inputLetter) => {
         if (currentCol < 5 && currentRow < 6) {
-            const newBoard = [...board];
-            newBoard[currentRow][currentCol] = inputLetter;
+            const newBoard = board.map(row => row.map(cell => ({ ...cell })));
+            newBoard[currentRow][currentCol].letter = inputLetter;
             setBoard(newBoard);
 
             if (currentCol < 5) {
@@ -58,12 +104,28 @@ const Board = ({ letter, keyPressCount }) => {
         }
     };
 
+    const checkLetter = (letter, index) => {
+        if (solution[index] === letter)
+            return "#6aaa64";
+        else if (solution.includes(letter))
+            return "#c9b458";
+        return "#787c7e";
+    };
+
+    const showNotfication = (message) => {
+        setNotification({ message: message, visible: true});
+        setTimeout(() => {
+            setNotification({ message: '', visible: false});
+        }, 3000);
+    };
+
     return (
         <div className="words-container">
+            <Notification message={notification.message} visible={notification.visible} />
             {board.map((row, rowIndex) => (
                 <div key={rowIndex} className="row">
                     {row.map((cell, colIndex) => (
-                        <Cell key={colIndex} letter={cell} />
+                        <Cell key={colIndex} letter={cell.letter} color={cell.color} />
                     ))}
                 </div>
             ))}

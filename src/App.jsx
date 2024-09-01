@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import Keyboard from './Components/jsx/Keyboard';
 import Board from './Components/jsx/Board';
-import { SolutionProvider } from './SolutionContext';
+import { SolutionProvider } from './Components/jsx/SolutionContext';
 
 const App = () => {
 
