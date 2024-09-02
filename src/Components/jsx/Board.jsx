@@ -3,15 +3,14 @@ import Cell from "./Cell";
 import Notification from "./Notification";
 import '../css/Board.css';
 import { SolutionContext } from "./SolutionContext";
+import { BoardContext } from "./BoardContext";
 
 const Board = ({ letter, keyPressCount }) => {
-    const [board, setBoard] = useState(Array(6).fill(null).map(() => 
-        Array(5).fill({ letter: '', color: 'white' })
-    ));
     const [currentRow, setCurrentRow] = useState(0);
     const [currentCol, setCurrentCol] = useState(0);
     const [notification, setNotification] = useState({ message: '', visible: false });
 
+    const { board, setBoard } = useContext(BoardContext);
     const { solution, validGuesses, validSolutions } = useContext(SolutionContext);
 
     useEffect(() => {
@@ -71,7 +70,7 @@ const Board = ({ letter, keyPressCount }) => {
                 guess.forEach((letter, index) => {
                     letter = letter.toLowerCase();
                     if (solution[index] === letter) {
-                        newBoard[currentRow][index].color = '#6aaa64';
+                        newBoard[currentRow][index].color = '#6aaa64'; // green
                     } else if (solution.includes(letter)) {
                         letterCount[letter] = letterCount[letter] ? letterCount[letter] + 1 : 1;
                     }
@@ -87,10 +86,10 @@ const Board = ({ letter, keyPressCount }) => {
                         }
                     }
                     if (newBoard[currentRow][index].color === 'white' && letterCount[letter]) {
-                        newBoard[currentRow][index].color = '#c9b458';
+                        newBoard[currentRow][index].color = '#c9b458'; // yellow
                         letterCount[letter] -= 1;
                     } else if (newBoard[currentRow][index].color === 'white') {
-                        newBoard[currentRow][index].color = '#787c7e';
+                        newBoard[currentRow][index].color = '#787c7e'; // grey
                     }
                     setBoard(newBoard);
                 });

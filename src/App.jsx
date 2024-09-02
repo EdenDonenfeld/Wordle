@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Keyboard from './Components/jsx/Keyboard';
 import Board from './Components/jsx/Board';
 import { SolutionProvider } from './Components/jsx/SolutionContext';
+import { BoardProvider } from './Components/jsx/BoardContext';
 
 const App = () => {
 
@@ -39,11 +40,13 @@ const App = () => {
 
   return (
     <SolutionProvider>
+      <BoardProvider>
       <div className="App">
         <h1 className="header">Wordle</h1>
         <Board letter={letter} keyPressCount={keyPressCount} />
         <Keyboard onKeyPress={logLetter}/>
       </div>
+      </BoardProvider>
     </SolutionProvider>
   );
 }

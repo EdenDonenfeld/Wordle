@@ -1,4 +1,4 @@
-import React, {createContext, useState, useEffect, useRef} from 'react';
+import React, { createContext, useState, useEffect, useRef } from 'react';
 import { loadWords } from './LoadWords';
 
 export const SolutionContext = createContext();
