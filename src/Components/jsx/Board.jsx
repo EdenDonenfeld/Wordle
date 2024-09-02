@@ -61,11 +61,41 @@ const Board = ({ letter, keyPressCount }) => {
 
             if (validGuesses.includes(word) || validSolutions.includes(word)) {
                 const newBoard = board.map(row => row.map(cell => ({ ...cell })));
+                const letterCount = {};
+
+                const solutionCount = {}
+                solution.split('').forEach(letter => {
+                    solutionCount[letter] = solutionCount[letter] ? solutionCount[letter] + 1 : 1;
+                });
+
                 guess.forEach((letter, index) => {
-                    const color = checkLetter(letter.toLowerCase(), index);
-                    newBoard[currentRow][index].color = color;
+                    letter = letter.toLowerCase();
+                    if (solution[index] === letter) {
+                        newBoard[currentRow][index].color = '#6aaa64';
+                    } else if (solution.includes(letter)) {
+                        letterCount[letter] = letterCount[letter] ? letterCount[letter] + 1 : 1;
+                    }
                     setBoard(newBoard);
                 });
+
+                guess.forEach((letter, index) => {
+                    letter = letter.toLowerCase();
+                    if (solutionCount[letter] && letterCount[letter] && solutionCount[letter] > letterCount[letter]) {
+                        letterCount[letter] = letterCount[letter] - solutionCount[letter];
+                        if (letterCount[letter] === 0) {
+                            delete letterCount[letter];
+                        }
+                    }
+                    if (newBoard[currentRow][index].color === 'white' && letterCount[letter]) {
+                        newBoard[currentRow][index].color = '#c9b458';
+                        letterCount[letter] -= 1;
+                    } else if (newBoard[currentRow][index].color === 'white') {
+                        newBoard[currentRow][index].color = '#787c7e';
+                    }
+                    setBoard(newBoard);
+                });
+
+                
                 setCurrentCol(0);
                 setCurrentRow(currentRow + 1);
             } else {
@@ -102,14 +132,6 @@ const Board = ({ letter, keyPressCount }) => {
                 setCurrentCol(currentCol + 1);
             }
         }
-    };
-
-    const checkLetter = (letter, index) => {
-        if (solution[index] === letter)
-            return "#6aaa64";
-        else if (solution.includes(letter))
-            return "#c9b458";
-        return "#787c7e";
     };
 
     const showNotfication = (message) => {
