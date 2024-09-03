@@ -42,7 +42,7 @@ const App = () => {
     <SolutionProvider>
       <BoardProvider>
       <div className="App">
-        <h1 className="header">Wordle</h1>
+        <h1 className="header">Unlimitied Wordle</h1>
         <Board letter={letter} keyPressCount={keyPressCount} />
         <Keyboard onKeyPress={logLetter}/>
       </div>
