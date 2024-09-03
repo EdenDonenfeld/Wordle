@@ -12,8 +12,8 @@ const loadCsv = (filePath) => {
 };
 
 export const loadWords = async () => {
-    const validGuesses = await loadCsv('/data/valid_guesses.csv');
-    const validSolutions = await loadCsv('/data/valid_solutions.csv');
+    const validGuesses = await loadCsv('/Wordle/data/valid_guesses.csv');
+    const validSolutions = await loadCsv('/Wordle/data/valid_solutions.csv');
 
     return { validGuesses, validSolutions };
 }

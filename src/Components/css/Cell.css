@@ -13,3 +13,17 @@
     text-align: center;
     text-decoration: none;
 }
+
+@media (max-width: 768px) {
+    .letter-btn {
+        height: 50px;
+        width: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .letter-btn {
+        height: 55px;
+        width: 55px;
+    }
+}

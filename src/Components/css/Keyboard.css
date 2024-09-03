@@ -2,6 +2,9 @@
     display: flex;
     flex-direction: column;
     margin: 10px;
+    width: 100%;
+    max-width: 600px; /* Set a maximum width to prevent stretching */
+    align-self: center;
 }
 
 .first-row, .second-row, .third-row {
