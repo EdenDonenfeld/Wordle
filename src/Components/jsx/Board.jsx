@@ -31,6 +31,9 @@ const Board = ({ letter, keyPressCount }) => {
             const guess = board[currentRow].map(cell => cell.letter);
             const word = guess.join('').toLowerCase();
 
+            console.log("Word: ", word)
+            console.log("Current row: ", currentRow);
+
             if (word === solution) {
                 let winMessage = '';
                 switch (currentRow) {
@@ -100,6 +103,12 @@ const Board = ({ letter, keyPressCount }) => {
             } else {
                 showNotfication('Not in word list');
             }
+
+            if (currentRow === 5) {
+                showNotfication(solution.toUpperCase());
+                return;
+            }
+
         } else {
             showNotfication('Not enough letters');
         }
