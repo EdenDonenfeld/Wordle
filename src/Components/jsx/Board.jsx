@@ -9,9 +9,17 @@ const Board = ({ letter, keyPressCount }) => {
     const [currentRow, setCurrentRow] = useState(0);
     const [currentCol, setCurrentCol] = useState(0);
     const [notification, setNotification] = useState({ message: '', visible: false });
+    const [finished, setFinished] = useState(false);
 
     const { board, setBoard } = useContext(BoardContext);
     const { solution, validGuesses, validSolutions } = useContext(SolutionContext);
+
+    useEffect(() => {
+        if (finished) {
+            setCurrentRow(6);
+            setCurrentCol(5);
+        }
+    }, [finished]);
 
     useEffect(() => {
         if (letter) {
@@ -31,10 +39,8 @@ const Board = ({ letter, keyPressCount }) => {
             const guess = board[currentRow].map(cell => cell.letter);
             const word = guess.join('').toLowerCase();
 
-            console.log("Word: ", word)
-            console.log("Current row: ", currentRow);
-
             if (word === solution) {
+                setFinished(true);
                 let winMessage = '';
                 switch (currentRow) {
                     case 0:
@@ -106,6 +112,7 @@ const Board = ({ letter, keyPressCount }) => {
 
             if (currentRow === 5) {
                 showNotfication(solution.toUpperCase());
+                setFinished(true);
                 return;
             }
 
