@@ -5,7 +5,7 @@
     display: inline-block;
     font-size: 1.2em;
     font-weight: bold;
-    font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial', sans-serif;
     height: 45px;
     width: 45px;
     margin: 2.5px;
@@ -16,14 +16,16 @@
 
 @media (max-width: 768px) {
     .letter-btn {
-        height: 50px;
-        width: 50px;
+        height: 52px;
+        width: 52px;
+        font-size: 1.4em;
     }
 }
 
 @media (max-width: 480px) {
     .letter-btn {
-        height: 55px;
-        width: 55px;
+        height: 57px;
+        width: 57px;
+        font-size: 1.6em;
     }
 }

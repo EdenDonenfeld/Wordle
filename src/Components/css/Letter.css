@@ -6,7 +6,7 @@
     display: inline-block;
     font-size: 1.2em;
     font-weight: bold;
-    font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial', sans-serif;
     height: 50px;
     width: fit-content;
     min-width: 40px;
@@ -28,9 +28,9 @@
 
 @media (max-width: 768px) {
     .keyboard-btn {
-        padding: 5px;
-        width: 35px;
+        width: 45px;
         min-width: 10px;
+        font-size: 1.3em;
     }
 
     #enter, #delete {
@@ -42,10 +42,10 @@
 
 @media (max-width: 480px) {
     .keyboard-btn {
-        padding: 3px;
-        width: 30px;
+        width: 40px;
         min-width: 10px;
-        flex: 1 1 8%; /* Allow buttons to shrink and distribute evenly */
+        font-size: 1.4em;
+        flex: 1 1 auto; /* Allow buttons to shrink and distribute evenly */
     }
 
     #enter, #delete {

@@ -1,11 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Franklin+Gothic+Medium:wght@400;700&display=swap');
+
 * {
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
+}
+
+body {
+  font-family: 'Franklin Gothic Medium', 'Arial', sans-serif;
 }
 
 .header {
@@ -14,7 +20,15 @@ body {
   text-align: center;
 }
 
+@media (max-width: 768px) {
+  .header {
+    margin-bottom: 5px;
+  }
+}
+
+
 .App {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }

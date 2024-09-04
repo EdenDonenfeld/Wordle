@@ -12,3 +12,9 @@
     justify-content: center;
 }
 
+
+@media (max-width: 768px) {
+    .keyboard-container {
+        margin-top: 20px;
+    }
+}

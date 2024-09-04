@@ -39,35 +39,8 @@ const Board = ({ letter, keyPressCount }) => {
             const guess = board[currentRow].map(cell => cell.letter);
             const word = guess.join('').toLowerCase();
 
-            if (word === solution) {
-                setFinished(true);
-                let winMessage = '';
-                switch (currentRow) {
-                    case 0:
-                        winMessage = 'Genius';
-                        break;
-                    case 1:
-                        winMessage = 'Magnificent';
-                        break;
-                    case 2:
-                        winMessage = 'Impressive';
-                        break;
-                    case 3:
-                        winMessage = 'Splendid';
-                        break;
-                    case 4:
-                        winMessage = 'Great';
-                        break;
-                    case 5:
-                        winMessage = 'Phew';
-                        break;
-                    default:
-                        break;
-                }
-                showNotfication(winMessage);
-            }
-
             if (validGuesses.includes(word) || validSolutions.includes(word)) {
+                console.log('valid guess');
                 const newBoard = board.map(row => row.map(cell => ({ ...cell })));
                 const letterCount = {};
 
@@ -103,17 +76,43 @@ const Board = ({ letter, keyPressCount }) => {
                     setBoard(newBoard);
                 });
 
+
+                if (word === solution) {
+                    setFinished(true);
+                    let winMessage = '';
+                    switch (currentRow) {
+                        case 0:
+                            winMessage = 'Genius';
+                            break;
+                        case 1:
+                            winMessage = 'Magnificent';
+                            break;
+                        case 2:
+                            winMessage = 'Impressive';
+                            break;
+                        case 3:
+                            winMessage = 'Splendid';
+                            break;
+                        case 4:
+                            winMessage = 'Great';
+                            break;
+                        case 5:
+                            winMessage = 'Phew';
+                            break;
+                        default:
+                            break;
+                    }
+                    showNotfication(winMessage);
+                } else if (currentRow === 5) {
+                    showNotfication(solution.toUpperCase());
+                    setFinished(true);
+                    return;
+                }
                 
                 setCurrentCol(0);
                 setCurrentRow(currentRow + 1);
             } else {
                 showNotfication('Not in word list');
-            }
-
-            if (currentRow === 5) {
-                showNotfication(solution.toUpperCase());
-                setFinished(true);
-                return;
             }
 
         } else {
