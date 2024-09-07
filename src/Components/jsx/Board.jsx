@@ -38,69 +38,49 @@ const Board = ({ letter, keyPressCount }) => {
         if (currentCol === 5) {
             const guess = board[currentRow].map(cell => cell.letter);
             const word = guess.join('').toLowerCase();
-
+    
             if (validGuesses.includes(word) || validSolutions.includes(word)) {
                 console.log('valid guess');
                 const newBoard = board.map(row => row.map(cell => ({ ...cell })));
-                const letterCount = {};
-
-                const solutionCount = {}
+    
+                const solutionCount = {};
                 solution.split('').forEach(letter => {
                     solutionCount[letter] = solutionCount[letter] ? solutionCount[letter] + 1 : 1;
                 });
-
+        
                 guess.forEach((letter, index) => {
                     letter = letter.toLowerCase();
                     if (solution[index] === letter) {
                         newBoard[currentRow][index].color = '#6aaa64'; // green
-                    } else if (solution.includes(letter)) {
-                        letterCount[letter] = letterCount[letter] ? letterCount[letter] + 1 : 1;
+                        solutionCount[letter] -= 1;
                     }
-                    setBoard(newBoard);
                 });
-
+    
                 guess.forEach((letter, index) => {
                     letter = letter.toLowerCase();
-                    if (solutionCount[letter] && letterCount[letter] && solutionCount[letter] > letterCount[letter]) {
-                        letterCount[letter] = letterCount[letter] - solutionCount[letter];
-                        if (letterCount[letter] === 0) {
-                            delete letterCount[letter];
+                    if (newBoard[currentRow][index].color !== '#6aaa64') { // If not green
+                        if (solutionCount[letter] && solutionCount[letter] > 0) {
+                            newBoard[currentRow][index].color = '#c9b458'; // yellow
+                            solutionCount[letter] -= 1;
+                        } else {
+                            newBoard[currentRow][index].color = '#787c7e'; // grey
                         }
                     }
-                    if (newBoard[currentRow][index].color === 'white' && letterCount[letter]) {
-                        newBoard[currentRow][index].color = '#c9b458'; // yellow
-                        letterCount[letter] -= 1;
-                    } else if (newBoard[currentRow][index].color === 'white') {
-                        newBoard[currentRow][index].color = '#787c7e'; // grey
-                    }
-                    setBoard(newBoard);
                 });
-
-
+    
+                setBoard(newBoard);
+    
                 if (word === solution) {
                     setFinished(true);
                     let winMessage = '';
                     switch (currentRow) {
-                        case 0:
-                            winMessage = 'Genius';
-                            break;
-                        case 1:
-                            winMessage = 'Magnificent';
-                            break;
-                        case 2:
-                            winMessage = 'Impressive';
-                            break;
-                        case 3:
-                            winMessage = 'Splendid';
-                            break;
-                        case 4:
-                            winMessage = 'Great';
-                            break;
-                        case 5:
-                            winMessage = 'Phew';
-                            break;
-                        default:
-                            break;
+                        case 0: winMessage = 'Genius'; break;
+                        case 1: winMessage = 'Magnificent'; break;
+                        case 2: winMessage = 'Impressive'; break;
+                        case 3: winMessage = 'Splendid'; break;
+                        case 4: winMessage = 'Great'; break;
+                        case 5: winMessage = 'Phew'; break;
+                        default: break;
                     }
                     showNotfication(winMessage);
                 } else if (currentRow === 5) {
@@ -108,18 +88,16 @@ const Board = ({ letter, keyPressCount }) => {
                     setFinished(true);
                     return;
                 }
-                
+    
                 setCurrentCol(0);
                 setCurrentRow(currentRow + 1);
             } else {
                 showNotfication('Not in word list');
             }
-
         } else {
             showNotfication('Not enough letters');
         }
-    }
-
+    };
 
     const handleDelete = () => {
         if (currentCol > 0) {

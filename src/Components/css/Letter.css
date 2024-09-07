@@ -3,7 +3,9 @@
     border: 0;
     border-radius: 4px;
     color: #333;
-    display: inline-block;
+    display: inline-flex; /* Change to flexbox for easier centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
     font-size: 1.2em;
     font-weight: bold;
     font-family: 'Franklin Gothic Medium', 'Arial', sans-serif;
@@ -13,7 +15,6 @@
     margin: 3px;
     padding: 5px 10px;
     text-align: center;
-    align-self: center;
     text-decoration: none;
 }
 
@@ -45,7 +46,9 @@
         width: 40px;
         min-width: 10px;
         font-size: 1.4em;
-        flex: 1 1 auto; /* Allow buttons to shrink and distribute evenly */
+        flex: 1 1 auto;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
     }
 
     #enter, #delete {
