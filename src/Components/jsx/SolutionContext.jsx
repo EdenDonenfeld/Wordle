@@ -19,7 +19,6 @@ export const SolutionProvider = (props) => {
             const randomIndex = Math.floor(Math.random() * validSolutions.length);
             const selectedSolution = validSolutions[randomIndex];
             setSolution(selectedSolution);
-            console.log(selectedSolution);
           };
           fetchWords();
           solutionRef.current = true;  // Mark words as fetched

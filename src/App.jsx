@@ -11,7 +11,6 @@ const App = () => {
   const [keyPressCount, setKeyPressCount] = useState(0);
 
   const logLetter = (letter) => {
-    console.log(letter);
     setLetter(letter);
     setKeyPressCount(keyPressCount + 1);
   }

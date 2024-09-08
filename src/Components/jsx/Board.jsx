@@ -40,7 +40,6 @@ const Board = ({ letter, keyPressCount }) => {
             const word = guess.join('').toLowerCase();
     
             if (validGuesses.includes(word) || validSolutions.includes(word)) {
-                console.log('valid guess');
                 const newBoard = board.map(row => row.map(cell => ({ ...cell })));
     
                 const solutionCount = {};
